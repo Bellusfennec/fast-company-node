@@ -66,21 +66,11 @@ export const getQualitiesByIds2 = (ids) => (dispatch, getState) => {
 
 export const getQualities = () => (state) => state.qualities.entities;
 export const getQualitiesIsLoading = () => (state) => state.qualities.isLoading;
-export const getQualitiesByIds = (ids) => (state) => {
+export const getQualityById = (id) => (state) => {
   if (state.qualities.entities) {
-    const qualitiesArray = [];
-    for (const id of ids) {
-      for (const quality of state.qualities.entities) {
-        if (quality._id === id) {
-          qualitiesArray.push(quality);
-          break;
-        }
-      }
-    }
-    return qualitiesArray;
-    // state.qualities.entities.find((q) => q._id === id);
+    return state.qualities.entities.find((q) => q._id === id);
   }
-  return [];
+  return id;
 };
 
 export default qualitiesReducer;

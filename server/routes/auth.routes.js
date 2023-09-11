@@ -5,7 +5,6 @@ const { generateUserData } = require("../utils/helpers");
 const bcryptjs = require("bcryptjs");
 const tokenService = require("../services/token.service");
 const { check, validationResult } = require("express-validator");
-const Token = require("../models/Token");
 
 // /api/auth/signUp
 // 1. get data from req (email, password ...)
@@ -31,7 +30,7 @@ router.post("/signUp", [
           },
         });
       }
-
+      console.log(req.body);
       const { email, password } = req.body;
       const existingUser = await User.findOne({ email });
 
@@ -53,6 +52,7 @@ router.post("/signUp", [
 
       res.status(201).send({ ...tokens, userId: newUser._id });
     } catch (error) {
+      console.log(error);
       res
         .status(500)
         .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
