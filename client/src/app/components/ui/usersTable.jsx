@@ -29,7 +29,7 @@ const UsersTable = ({ users, onBookMark, onSort, selectedSort }) => {
       component: (user) => (
         <BookMark
           id={user._id}
-          bookmark={user.bookmark}
+          bookmark={user.bookmark || false}
           onBookMark={onBookMark}
         />
       )
