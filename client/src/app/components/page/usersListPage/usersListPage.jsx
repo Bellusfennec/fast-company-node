@@ -15,7 +15,7 @@ import UsersTable from "../../ui/usersTable";
 
 const UsersListPage = () => {
   const pageSize = 8;
-  const [loading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const currentUserId = useSelector(getCurrentUserId());
   const professions = useSelector(getProfessions());
   const professionLoading = useSelector(getProfessionsIsLoading());
@@ -51,9 +51,9 @@ const UsersListPage = () => {
 
   function filterUsers(data) {
     const filtredUsers = selectedProfession
-      ? searchResult.filter(
-          (user) => user.profession._id === selectedProfession._id
-        )
+      ? searchResult.filter((user) => {
+          return user.profession === selectedProfession._id;
+        })
       : searchResult;
     return filtredUsers.filter((u) => u._id !== currentUserId);
   }
@@ -89,6 +89,12 @@ const UsersListPage = () => {
   const handleSerach = ({ target }) => {
     setSearch(target.value.toLowerCase());
   };
+
+  useEffect(() => {
+    if ((!professionLoading, users)) {
+      setLoading(false);
+    }
+  }, [professionLoading, users]);
 
   return (
     <>

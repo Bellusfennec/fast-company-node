@@ -14,17 +14,14 @@ const commentService = {
   getAll: async (pageId) => {
     const { data } = await httpService.get(commentEndPoint, {
       params: {
-        orderBy: '"pageId"',
-        equalTo: `"${pageId}"`
+        orderBy: "pageId",
+        equalTo: `${pageId}`
       }
     });
     return data;
   },
   create: async (payload) => {
-    const { data } = await httpService.put(
-      commentEndPoint + payload._id,
-      payload
-    );
+    const { data } = await httpService.post(commentEndPoint, payload);
     return data;
   },
   delete: async (id) => {
